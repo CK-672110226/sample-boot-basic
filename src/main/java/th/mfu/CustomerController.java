@@ -24,6 +24,9 @@ public class CustomerController {
     @Autowired
     private CustomerRepository custRepo;
 
+    @Autowired
+    private SaleOrderRepository orderRepo;
+
     // GET for a customer
     @GetMapping("/customers/{id}")
     public ResponseEntity<Customer> getCustomer(@PathVariable Long id){
@@ -31,6 +34,16 @@ public class CustomerController {
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
         Optional<Customer> customer = custRepo.findById(id);
         return new ResponseEntity<Customer>(customer.get(), HttpStatus.OK);
+    }
+
+    // GET all orders for a specific customer
+    @GetMapping("/customers/{id}/orders")
+    public ResponseEntity<List<SaleOrder>> getOrdersForCustomer(@PathVariable Long id) {
+        if (!custRepo.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<SaleOrder> orders = orderRepo.findByCustomerId(id);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     // Get all customer
@@ -61,4 +74,3 @@ public class CustomerController {
     }
 
 }
-    

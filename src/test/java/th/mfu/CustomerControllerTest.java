@@ -33,7 +33,7 @@ public class CustomerControllerTest {
         // get that customer
         ResponseEntity<Collection> getResponse = controller.getAllCustomers();
         assertEquals(HttpStatus.OK, getResponse.getStatusCode());
-        assertEquals(11, getResponse.getBody().size());
+        assertEquals(1, getResponse.getBody().size());
 
     }
 

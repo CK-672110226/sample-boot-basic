@@ -1,11 +1,13 @@
 package th.mfu;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -20,6 +22,12 @@ public class Product {
     private Double price;
     private String description;
     private LocalDate manufactureDate;
+    
+
+    
+    @OneToMany(mappedBy = "product")
+    private List<ProductReview> reviews;
+    
     public Integer getId() {
         return id;
     }
@@ -53,6 +61,12 @@ public class Product {
         this.manufactureDate = manufactureDate;
     }
 
-    
+    public List<ProductReview> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ProductReview> reviews) {
+        this.reviews = reviews;
+    }
     
 }
